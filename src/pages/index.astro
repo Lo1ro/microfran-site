@@ -1,0 +1,316 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PetalBloom from '../components/PetalBloom.astro';
+import Icon from '../components/Icon.astro';
+import ProductCard from '../components/ProductCard.astro';
+import RatingBadge from '../components/RatingBadge.astro';
+import { getProductsDestaque, getServices } from '../lib/catalog';
+import { waLink, waPadrao, mensagemOrcamento } from '../lib/whatsapp';
+import { SITE } from '../config';
+
+const destaques = await getProductsDestaque();
+const servicos = await getServices();
+
+const petalas = [
+  'var(--color-petal-rosa)',
+  'var(--color-petal-roxo)',
+  'var(--color-petal-azul)',
+  'var(--color-petal-ciano)',
+  'var(--color-petal-agua)',
+  'var(--color-petal-verde)',
+  'var(--color-petal-amarelo)',
+  'var(--color-brand)',
+];
+
+const frentes = [
+  {
+    href: '/catalogo?categoria=papelaria',
+    titulo: 'Papelaria',
+    texto: 'Material escolar, escritório, artesanato e aquele presente de última hora.',
+    icone: 'pencil',
+    cor: 'text-petal-rosa',
+    tag: 'tag-papelaria',
+    acao: 'Ver produtos',
+  },
+  {
+    href: '/catalogo?categoria=informatica',
+    titulo: 'Informática',
+    texto: 'Suprimentos, periféricos e acessórios pro seu dia a dia funcionar.',
+    icone: 'monitor',
+    cor: 'text-petal-azul',
+    tag: 'tag-informatica',
+    acao: 'Ver produtos',
+  },
+  {
+    href: '/solucoes-graficas',
+    titulo: 'Soluções Gráficas',
+    texto: 'Impressão, cartão de visita, banner, adesivo, encadernação — sob orçamento.',
+    icone: 'printer',
+    cor: 'text-petal-roxo',
+    tag: 'tag-grafica',
+    acao: 'Pedir orçamento',
+  },
+];
+
+const passos = [
+  {
+    numero: '1',
+    titulo: 'Escolha os produtos',
+    texto: 'Navegue pelo catálogo e adicione ao carrinho o que precisar.',
+    classe: 'bg-[#fbe3ef] text-[#a02061]',
+  },
+  {
+    numero: '2',
+    titulo: 'Revise o carrinho',
+    texto: 'Confira itens, quantidades e o total do pedido.',
+    classe: 'bg-[#e3eafb] text-[#2a4ca0]',
+  },
+  {
+    numero: '3',
+    titulo: 'Finalize no WhatsApp',
+    texto: 'O pedido chega prontinho pra gente. Você combina pagamento e retirada ou entrega.',
+    classe: 'bg-[#e2f3d8] text-[#3d6b1e]',
+  },
+];
+---
+
+<BaseLayout>
+  <!-- ── Hero ─────────────────────────────────────────────────────────── -->
+  <section class="relative isolate overflow-hidden">
+    <PetalBloom variant="hero" />
+    <div class="relative mx-auto grid max-w-6xl items-center gap-10 px-4 pb-40 pt-14 lg:grid-cols-[1.15fr_0.85fr] lg:pb-56 lg:pt-20">
+      <div>
+        <p class="reveal inline-flex items-center gap-2 rounded-full border-[1.5px] border-line bg-surface px-4 py-1.5 text-xs font-extrabold uppercase tracking-[0.12em] text-ink-soft">
+          <Icon name="store" class="h-4 w-4 text-brand-strong" />
+          Jeriquara/SP · há {SITE.anosDeLoja} anos no balcão
+        </p>
+        <h1 class="reveal mt-5 font-display text-[2.5rem] font-extrabold leading-[1.05] sm:text-5xl lg:text-6xl" style="--reveal-delay:.08s">
+          Papelaria, informática e gráfica de Jeriquara.
+          <span class="relative inline-block text-brand-strong">
+            Agora também online.
+            <svg viewBox="0 0 120 12" class="absolute -bottom-2 left-0 h-3 w-full text-brand" preserveAspectRatio="none" aria-hidden="true">
+              <path d="M2 9C30 3 62 3.5 118 8" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" />
+            </svg>
+          </span>
+        </h1>
+        <p class="reveal mt-6 max-w-xl text-lg leading-relaxed text-ink-soft" style="--reveal-delay:.16s">
+          Monte seu pedido pelo site e finalize no WhatsApp. Retira na loja ou a gente combina a
+          entrega.
+        </p>
+        <div class="reveal mt-8 flex flex-wrap items-center gap-3" style="--reveal-delay:.24s">
+          <a href="/catalogo" class="btn btn-primary btn-lg">
+            Ver catálogo
+            <Icon name="arrow-right" class="h-5 w-5" />
+          </a>
+          <a href={waPadrao()} target="_blank" rel="noopener" class="btn btn-wa btn-lg">
+            <Icon name="whatsapp" class="h-5 w-5" stroke={1.6} />
+            Falar no WhatsApp
+          </a>
+        </div>
+        <div class="reveal mt-8" style="--reveal-delay:.32s">
+          <RatingBadge />
+        </div>
+      </div>
+
+      <!-- flor de pétalas + cartõezinhos flutuantes (desktop) -->
+      <div class="relative hidden lg:block" aria-hidden="true">
+        <svg
+          viewBox="0 0 64 64"
+          class="mx-auto w-[24rem] drop-shadow-sm"
+          style="animation: gira-devagar 120s linear infinite"
+        >
+          {petalas.map((cor, i) => (
+            <ellipse
+              cx="32"
+              cy="17.5"
+              rx="10.5"
+              ry="15.5"
+              fill={cor}
+              fill-opacity="0.75"
+              transform={`rotate(${i * 45} 32 32)`}
+            />
+          ))}
+        </svg>
+        <span
+          class="card absolute left-0 top-8 flex items-center gap-2 px-4 py-2.5 text-sm font-bold"
+          style="animation: flutua 3.8s ease-in-out infinite alternate"
+        >
+          <Icon name="pencil" class="h-4.5 w-4.5 text-petal-rosa" /> Material escolar
+        </span>
+        <span
+          class="card absolute -right-2 top-1/3 flex items-center gap-2 px-4 py-2.5 text-sm font-bold"
+          style="animation: flutua 4.6s ease-in-out infinite alternate; animation-delay:-1.2s"
+        >
+          <Icon name="monitor" class="h-4.5 w-4.5 text-petal-azul" /> Informática
+        </span>
+        <span
+          class="card absolute bottom-6 left-10 flex items-center gap-2 px-4 py-2.5 text-sm font-bold"
+          style="animation: flutua 4.2s ease-in-out infinite alternate; animation-delay:-2.4s"
+        >
+          <Icon name="printer" class="h-4.5 w-4.5 text-petal-roxo" /> Impressão na hora
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── As três frentes (sobrepostas ao banner do hero) ──────────────── -->
+  <section class="relative z-10 mx-auto -mt-28 max-w-6xl px-4 pb-16 lg:-mt-32" aria-labelledby="titulo-frentes">
+    <h2 id="titulo-frentes" class="sr-only">O que você encontra na Micro Fran</h2>
+    <div class="grid gap-4 md:grid-cols-3">
+      {frentes.map((f, i) => (
+        <a
+          href={f.href}
+          class="card reveal group flex flex-col p-6 transition-transform duration-200 hover:-translate-y-1"
+          style={`--reveal-delay:${i * 0.08}s`}
+        >
+          <span class:list={['grid h-12 w-12 place-items-center rounded-2xl border border-line bg-paper', f.cor]}>
+            <Icon name={f.icone} class="h-6 w-6" />
+          </span>
+          <h3 class="mt-4 font-display text-xl font-extrabold">{f.titulo}</h3>
+          <p class="mt-2 flex-1 text-sm leading-relaxed text-ink-soft">{f.texto}</p>
+          <span class="mt-4 inline-flex items-center gap-1.5 text-sm font-bold text-brand-deep">
+            {f.acao}
+            <Icon name="arrow-right" class="h-4 w-4 transition-transform group-hover:translate-x-1" />
+          </span>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <!-- ── Destaques ────────────────────────────────────────────────────── -->
+  <section class="mx-auto max-w-6xl px-4 pb-20" aria-labelledby="titulo-destaques">
+    <div class="reveal flex flex-wrap items-end justify-between gap-4">
+      <div>
+        <h2 id="titulo-destaques" class="font-display text-3xl font-extrabold sm:text-4xl">
+          Destaques da loja
+        </h2>
+        <p class="mt-2 text-ink-soft">
+          Uma amostra da prateleira — o catálogo completo está sempre crescendo.
+        </p>
+      </div>
+      <a href="/catalogo" class="btn btn-ghost">
+        Ver catálogo completo
+        <Icon name="arrow-right" class="h-4 w-4" />
+      </a>
+    </div>
+    <div class="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+      {destaques.map((p, i) => (
+        <div class="reveal" style={`--reveal-delay:${(i % 4) * 0.06}s`}>
+          <ProductCard produto={p} />
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- ── Como funciona ────────────────────────────────────────────────── -->
+  <section class="border-y border-line bg-surface/60" aria-labelledby="titulo-como-funciona">
+    <div class="mx-auto max-w-6xl px-4 py-16">
+      <h2 id="titulo-como-funciona" class="reveal font-display text-3xl font-extrabold sm:text-4xl">
+        Como funciona
+      </h2>
+      <p class="reveal mt-2 max-w-xl text-ink-soft" style="--reveal-delay:.06s">
+        Sem cadastro e sem cartão no site — do jeito simples que cidade pequena gosta.
+      </p>
+      <ol class="mt-10 grid gap-6 md:grid-cols-3">
+        {passos.map((p, i) => (
+          <li class="reveal flex gap-4" style={`--reveal-delay:${i * 0.1}s`}>
+            <span class:list={['grid h-12 w-12 shrink-0 place-items-center rounded-full font-display text-xl font-extrabold', p.classe]}>
+              {p.numero}
+            </span>
+            <div>
+              <h3 class="font-display text-lg font-extrabold">{p.titulo}</h3>
+              <p class="mt-1 text-sm leading-relaxed text-ink-soft">{p.texto}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- ── Faixa da gráfica ─────────────────────────────────────────────── -->
+  <section class="relative isolate overflow-hidden bg-ink text-white" aria-labelledby="titulo-grafica">
+    <PetalBloom variant="faixa" claro />
+    <div class="relative mx-auto max-w-6xl px-4 py-16">
+      <div class="max-w-2xl">
+        <p class="reveal text-xs font-extrabold uppercase tracking-[0.14em] text-white/60">
+          Soluções gráficas · serviço sob orçamento
+        </p>
+        <h2 id="titulo-grafica" class="reveal mt-3 font-display text-3xl font-extrabold sm:text-4xl" style="--reveal-delay:.06s">
+          Precisa de impressão ou de arte pronta? A gente resolve.
+        </h2>
+        <p class="reveal mt-4 leading-relaxed text-white/75" style="--reveal-delay:.12s">
+          Trabalho gráfico é personalizado — tamanho, quantidade, material. Por isso não tem
+          carrinho: você conta o que precisa e a gente responde com preço e prazo no WhatsApp.
+        </p>
+      </div>
+      <ul class="reveal mt-8 flex flex-wrap gap-2" style="--reveal-delay:.18s">
+        {servicos.map((s) => (
+          <li class="rounded-full border border-white/20 px-4 py-1.5 text-sm font-semibold text-white/85">
+            {s.nome}
+          </li>
+        ))}
+      </ul>
+      <div class="reveal mt-8 flex flex-wrap gap-3" style="--reveal-delay:.24s">
+        <a
+          href={waLink(mensagemOrcamento('um serviço gráfico'))}
+          target="_blank"
+          rel="noopener"
+          class="btn btn-wa"
+        >
+          <Icon name="whatsapp" class="h-5 w-5" stroke={1.6} />
+          Pedir orçamento no WhatsApp
+        </a>
+        <a href="/solucoes-graficas" class="btn btn-contorno-claro">Ver todos os serviços</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Tradição / prova social ──────────────────────────────────────── -->
+  <section class="mx-auto max-w-6xl px-4 py-20" aria-labelledby="titulo-tradicao">
+    <div class="grid items-center gap-10 lg:grid-cols-[1.05fr_1fr] lg:gap-14">
+      <!-- {{PLACEHOLDER}}: foto da loja — troque este bloco por
+           <img src="/img/loja.jpg" alt="Fachada da Micro Fran" class="reveal aspect-[4/3] w-full rounded-3xl border border-line object-cover" /> -->
+      <div
+        class="reveal relative aspect-[4/3] w-full overflow-hidden rounded-3xl border border-line bg-[#e9e3d9]"
+        aria-hidden="true"
+      >
+        <p class="absolute inset-0 grid place-items-center text-xs font-bold uppercase tracking-[0.14em] text-ink-soft/45">
+          Foto da loja
+        </p>
+      </div>
+
+      <div>
+        <h2 id="titulo-tradicao" class="reveal font-display text-3xl font-extrabold sm:text-4xl">
+          Há {SITE.anosDeLoja} anos, a loja que Jeriquara conhece pelo nome.
+        </h2>
+        <p class="reveal mt-4 leading-relaxed text-ink-soft" style="--reveal-delay:.08s">
+          A Micro Fran nasceu pra reunir num lugar só o material da escola, o suprimento do
+          escritório e a gráfica da cidade. Vinte anos depois, seguimos do mesmo jeito: atendimento
+          de balcão, conversa olho no olho — agora também com pedido pelo site.
+        </p>
+        <ul class="mt-8 space-y-5">
+          {
+            [
+              ['Retirada na loja, no centro de Jeriquara', 'map-pin'],
+              ['Entrega combinada direto no WhatsApp', 'whatsapp'],
+              ['Atendimento de quem conhece você pelo nome', 'heart'],
+            ].map(([texto, icone], i) => (
+              <li class="reveal flex items-center gap-4" style={`--reveal-delay:${i * 0.08}s`}>
+                <span class="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-brand-soft text-brand-deep">
+                  <Icon name={icone} class="h-5 w-5" />
+                </span>
+                <p class="font-bold">{texto}</p>
+              </li>
+            ))
+          }
+        </ul>
+        <div class="reveal mt-8 flex flex-wrap items-center gap-4" style="--reveal-delay:.24s">
+          <RatingBadge />
+          <a href="/sobre" class="text-sm font-bold text-brand-deep underline underline-offset-4 hover:text-brand-strong">
+            Conheça a nossa história →
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

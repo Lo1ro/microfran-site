@@ -1,0 +1,58 @@
+[
+  {
+    "id": "impressao-xerox",
+    "nome": "Impressão e xerox",
+    "icone": "printer",
+    "descricao": "Preto e branco ou colorida, na hora. Documentos, trabalhos escolares, contratos e currículos.",
+    "exemplos": ["Trabalhos escolares", "Documentos", "Currículos"]
+  },
+  {
+    "id": "cartao-visita",
+    "nome": "Cartão de visita",
+    "icone": "idcard",
+    "descricao": "Cartões que apresentam seu negócio direitinho. Se precisar, a gente ajuda com a arte.",
+    "exemplos": ["Comércios", "Profissionais liberais", "Prestadores de serviço"]
+  },
+  {
+    "id": "banner-faixa",
+    "nome": "Banner e faixa",
+    "icone": "flag",
+    "descricao": "Promoção, inauguração, festa ou evento da cidade — impressão grande, cor viva e acabamento com ilhós.",
+    "exemplos": ["Promoções", "Eventos", "Fachadas"]
+  },
+  {
+    "id": "adesivos-etiquetas",
+    "nome": "Adesivos e etiquetas",
+    "icone": "sticker",
+    "descricao": "Adesivos em vinil e etiquetas em vários tamanhos e recortes, pra rotular, decorar ou divulgar.",
+    "exemplos": ["Rótulos", "Logomarcas", "Personalizados"]
+  },
+  {
+    "id": "encadernacao",
+    "nome": "Encadernação",
+    "icone": "book",
+    "descricao": "Espiral com capa transparente e contracapa colorida. Apostilas, TCC e até o caderno de receitas da família.",
+    "exemplos": ["Apostilas", "TCC", "Documentos"]
+  },
+  {
+    "id": "plastificacao",
+    "nome": "Plastificação",
+    "icone": "layers",
+    "descricao": "Proteção pra documentos, crachás e cardápios que precisam durar.",
+    "exemplos": ["Documentos", "Crachás", "Cardápios"]
+  },
+  {
+    "id": "convites-lembrancinhas",
+    "nome": "Convites e lembrancinhas",
+    "icone": "gift",
+    "descricao": "Convites de aniversário, casamento e formatura, tags e lembrancinhas personalizadas.",
+    "exemplos": ["Aniversários", "Casamentos", "Formaturas"]
+  },
+  {
+    "id": "impressos-volume",
+    "nome": "Impressos em volume",
+    "icone": "copies",
+    "descricao": "Apostilas, manuais e materiais de curso em quantidade, com preço que melhora conforme o volume.",
+    "exemplos": ["Apostilas", "Manuais", "Igrejas e escolas"]
+  }
+]

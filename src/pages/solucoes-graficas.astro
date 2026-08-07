@@ -1,0 +1,113 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+import PetalBloom from '../components/PetalBloom.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+import { getServices } from '../lib/catalog';
+import { waLink, mensagemOrcamento } from '../lib/whatsapp';
+
+const servicos = await getServices();
+
+// cada card de serviço ganha uma cor de pétala, na sequência da logo
+const cores = [
+  'text-petal-rosa',
+  'text-petal-roxo',
+  'text-petal-azul',
+  'text-petal-ciano',
+  'text-petal-agua',
+  'text-petal-verde',
+  'text-petal-amarelo',
+  'text-brand-strong',
+];
+
+const passos = [
+  {
+    numero: '1',
+    titulo: 'Conte o que precisa',
+    texto: 'Serviço, tamanho, quantidade e se já tem a arte — tudo pelo WhatsApp.',
+    classe: 'bg-[#eee6fa] text-[#633b9e]',
+  },
+  {
+    numero: '2',
+    titulo: 'Receba preço e prazo',
+    texto: 'A gente responde com o orçamento certinho pro seu caso.',
+    classe: 'bg-[#e0f2f8] text-[#0f6e8c]',
+  },
+  {
+    numero: '3',
+    titulo: 'Aprovou, a gente produz',
+    texto: 'Você acompanha e retira na loja quando ficar pronto.',
+    classe: 'bg-[#e2f3d8] text-[#3d6b1e]',
+  },
+];
+---
+
+<BaseLayout
+  title="Soluções Gráficas"
+  description="Impressão, cartão de visita, banner, adesivo e encadernação em Jeriquara/SP. Conte o que precisa e receba orçamento pelo WhatsApp."
+>
+  <section class="relative isolate overflow-hidden">
+    <PetalBloom variant="hero" />
+    <div class="relative mx-auto max-w-6xl px-4 pb-12 pt-14 lg:pt-20">
+      <p class="reveal inline-flex items-center gap-2 rounded-full border-[1.5px] border-line bg-surface px-4 py-1.5 text-xs font-extrabold uppercase tracking-[0.12em] text-ink-soft">
+        <Icon name="printer" class="h-4 w-4 text-petal-roxo" />
+        Serviço sob orçamento
+      </p>
+      <h1 class="reveal mt-5 max-w-3xl font-display text-4xl font-extrabold leading-[1.05] sm:text-5xl" style="--reveal-delay:.08s">
+        Soluções Gráficas
+      </h1>
+      <p class="reveal mt-5 max-w-2xl text-lg leading-relaxed text-ink-soft" style="--reveal-delay:.16s">
+        Cada trabalho gráfico é único — tamanho, quantidade, material, arte. Por isso aqui não tem
+        carrinho: você conta o que precisa e a gente responde com <strong>preço e prazo</strong> no
+        WhatsApp.
+      </p>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-4 pb-4" aria-label="Como funciona o orçamento">
+    <ol class="grid gap-6 rounded-3xl border border-line bg-surface/70 p-8 md:grid-cols-3">
+      {passos.map((p, i) => (
+        <li class="reveal flex gap-4" style={`--reveal-delay:${i * 0.08}s`}>
+          <span class:list={['grid h-12 w-12 shrink-0 place-items-center rounded-full font-display text-xl font-extrabold', p.classe]}>
+            {p.numero}
+          </span>
+          <div>
+            <h2 class="font-display text-lg font-extrabold">{p.titulo}</h2>
+            <p class="mt-1 text-sm leading-relaxed text-ink-soft">{p.texto}</p>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-4 py-12" aria-label="Serviços disponíveis">
+    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      {servicos.map((s, i) => (
+        <div class="reveal" style={`--reveal-delay:${(i % 4) * 0.06}s`}>
+          <ServiceCard servico={s} cor={cores[i % cores.length]} />
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="relative isolate overflow-hidden bg-ink text-white">
+    <PetalBloom variant="faixa" claro />
+    <div class="relative mx-auto max-w-6xl px-4 py-14 text-center">
+      <h2 class="reveal font-display text-3xl font-extrabold">Não achou o serviço na lista?</h2>
+      <p class="reveal mx-auto mt-3 max-w-xl text-white/75" style="--reveal-delay:.08s">
+        Se envolve papel, impressão ou arte, é bem provável que a gente faça — ou saiba quem faz.
+        Pergunta sem compromisso.
+      </p>
+      <a
+        href={waLink(mensagemOrcamento('um serviço que não está na lista do site'))}
+        target="_blank"
+        rel="noopener"
+        class="btn btn-wa btn-lg reveal mt-7"
+        style="--reveal-delay:.16s"
+      >
+        <Icon name="whatsapp" class="h-5 w-5" stroke={1.6} />
+        Perguntar no WhatsApp
+      </a>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,14 @@
+# build
+dist/
+.astro/
+
+# dependências
+node_modules/
+
+# ambiente (chaves ficam fora do repo)
+.env
+.env.production
+
+# sistema
+.DS_Store
+Thumbs.db

@@ -1,0 +1,104 @@
+---
+import Logo from './Logo.astro';
+import Icon from './Icon.astro';
+import PetalBloom from './PetalBloom.astro';
+import { SITE, mapsComoChegar } from '../config';
+import { waPadrao } from '../lib/whatsapp';
+
+const ano = new Date().getFullYear();
+const e = SITE.endereco;
+---
+
+<footer class="relative isolate overflow-hidden bg-[#221d17] text-[#ece5da]">
+  <PetalBloom variant="rodape" claro />
+  <div class="relative mx-auto max-w-6xl px-4 py-14">
+    <div class="grid gap-10 md:grid-cols-2 lg:grid-cols-[1.3fr_1fr_1.2fr_1fr]">
+      <div>
+        <Logo class="h-11" dark />
+        <p class="mt-4 max-w-xs text-sm leading-relaxed text-white/70">
+          Papelaria, informática e soluções gráficas em Jeriquara/SP. Há {SITE.anosDeLoja} anos
+          atendendo a cidade pelo nome.
+        </p>
+      </div>
+
+      <nav aria-label="Links do rodapé">
+        <h2 class="font-display text-sm font-extrabold uppercase tracking-wider text-white/50">
+          Navegue
+        </h2>
+        <ul class="mt-4 space-y-2.5 text-sm font-semibold">
+          <li><a class="hover:text-brand" href="/catalogo">Catálogo</a></li>
+          <li><a class="hover:text-brand" href="/solucoes-graficas">Soluções Gráficas</a></li>
+          <li><a class="hover:text-brand" href="/sobre">Sobre a loja</a></li>
+          <li><a class="hover:text-brand" href="/contato">Contato</a></li>
+          <li><a class="hover:text-brand" href="/carrinho">Carrinho</a></li>
+        </ul>
+      </nav>
+
+      <div>
+        <h2 class="font-display text-sm font-extrabold uppercase tracking-wider text-white/50">
+          Onde estamos
+        </h2>
+        <address class="mt-4 space-y-3 text-sm not-italic leading-relaxed text-white/80">
+          <p class="flex gap-2.5">
+            <Icon name="map-pin" class="mt-0.5 h-4 w-4 shrink-0 text-brand" />
+            <span>{e.rua} — {e.bairro}<br />{e.cidade}/{e.uf} · CEP {e.cep}</span>
+          </p>
+          <p class="flex gap-2.5">
+            <Icon name="clock" class="mt-0.5 h-4 w-4 shrink-0 text-brand" />
+            <span>{SITE.horario.resumo}</span>
+          </p>
+          <p class="flex gap-2.5">
+            <Icon name="phone" class="mt-0.5 h-4 w-4 shrink-0 text-brand" />
+            <a class="hover:text-brand" href={waPadrao()} target="_blank" rel="noopener">
+              {SITE.whatsappDisplay}
+            </a>
+          </p>
+        </address>
+        <a
+          href={mapsComoChegar()}
+          target="_blank"
+          rel="noopener"
+          class="mt-4 inline-flex items-center gap-1.5 text-sm font-bold text-brand hover:underline"
+        >
+          Como chegar
+          <Icon name="arrow-right" class="h-4 w-4" />
+        </a>
+      </div>
+
+      <div>
+        <h2 class="font-display text-sm font-extrabold uppercase tracking-wider text-white/50">
+          Fale com a gente
+        </h2>
+        <a href={waPadrao()} target="_blank" rel="noopener" class="btn btn-wa mt-4 w-full">
+          <Icon name="whatsapp" class="h-5 w-5" stroke={1.6} />
+          WhatsApp
+        </a>
+        <div class="mt-5 flex gap-3">
+          <a
+            href={SITE.redes.instagram}
+            target="_blank"
+            rel="noopener"
+            aria-label="Instagram da Micro Fran"
+            class="grid h-10 w-10 place-items-center rounded-full border border-white/20 transition hover:border-brand hover:text-brand"
+          >
+            <Icon name="instagram" class="h-4.5 w-4.5" />
+          </a>
+          <a
+            href={SITE.redes.facebook}
+            target="_blank"
+            rel="noopener"
+            aria-label="Facebook da Micro Fran"
+            class="grid h-10 w-10 place-items-center rounded-full border border-white/20 transition hover:border-brand hover:text-brand"
+          >
+            <Icon name="facebook" class="h-4.5 w-4.5" />
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-12 flex flex-col items-start justify-between gap-3 border-t border-white/10 pt-6 text-xs text-white/50 sm:flex-row sm:items-center">
+      <p>© {ano} Micro Fran — Jeriquara/SP. Todos os direitos reservados.</p>
+      <p>Feito com papel, tinta e carinho pela cidade.</p>
+    </div>
+  </div>
+</footer>

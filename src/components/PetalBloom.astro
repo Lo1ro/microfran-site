@@ -1,0 +1,38 @@
+---
+/**
+ * Fundo decorativo com "pétalas" desfocadas — ecoa a sobreposição translúcida
+ * da logo. variant controla posição/cores; claro=true usa blend pra fundo escuro.
+ */
+interface Props {
+  variant?: 'hero' | 'faixa' | 'rodape';
+  claro?: boolean;
+}
+const { variant = 'hero', claro = false } = Astro.props;
+
+const layouts: Record<string, { c: string; estilo: string }[]> = {
+  hero: [
+    { c: 'var(--color-petal-rosa)', estilo: 'top:-12%;right:-6%;width:34rem;height:34rem;animation-delay:0s' },
+    { c: 'var(--color-petal-ciano)', estilo: 'top:22%;right:14%;width:22rem;height:22rem;animation-delay:-6s' },
+    { c: 'var(--color-petal-amarelo)', estilo: 'bottom:-18%;left:-8%;width:26rem;height:26rem;animation-delay:-11s' },
+  ],
+  faixa: [
+    { c: 'var(--color-petal-roxo)', estilo: 'top:-40%;left:-5%;width:24rem;height:24rem;animation-delay:0s' },
+    { c: 'var(--color-petal-ciano)', estilo: 'bottom:-50%;right:8%;width:26rem;height:26rem;animation-delay:-8s' },
+    { c: 'var(--color-petal-rosa)', estilo: 'top:-30%;right:32%;width:18rem;height:18rem;animation-delay:-4s' },
+  ],
+  rodape: [
+    { c: 'var(--color-petal-azul)', estilo: 'top:-30%;right:-4%;width:22rem;height:22rem;animation-delay:0s' },
+    { c: 'var(--color-petal-rosa)', estilo: 'bottom:-40%;left:10%;width:20rem;height:20rem;animation-delay:-9s' },
+  ],
+};
+---
+
+<div class="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
+  {layouts[variant].map((b) => (
+    <div
+      class:list={['petal-blob', claro && 'petal-blob-claro']}
+      style={`--blob-c:${b.c};${b.estilo}`}
+    >
+    </div>
+  ))}
+</div>

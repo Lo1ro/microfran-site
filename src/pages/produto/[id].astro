@@ -1,0 +1,144 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Icon from '../../components/Icon.astro';
+import ProductCard from '../../components/ProductCard.astro';
+import AddToCart from '../../components/islands/AddToCart';
+import { getProducts } from '../../lib/catalog';
+import { brl } from '../../lib/money';
+import { rotuloCategoria, rotuloSub } from '../../lib/labels';
+import { waLink } from '../../lib/whatsapp';
+import { SITE } from '../../config';
+import type { Product } from '../../lib/types';
+
+export async function getStaticPaths() {
+  const produtos = await getProducts();
+  return produtos.map((p) => ({ params: { id: p.id }, props: { p } }));
+}
+
+interface Props {
+  p: Product;
+}
+const { p } = Astro.props;
+
+const todos = await getProducts();
+const relacionados = todos
+  .filter((x) => x.id !== p.id)
+  .sort((a, b) => {
+    const nota = (x: Product) =>
+      (x.subcategoria === p.subcategoria ? 2 : 0) + (x.categoria === p.categoria ? 1 : 0);
+    return nota(b) - nota(a);
+  })
+  .slice(0, 4);
+
+const linkPerguntar = waLink(
+  `Olá, Micro Fran! Quero saber sobre o produto "${p.nome}" que vi no site.`,
+);
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Product',
+  name: p.nome,
+  description: p.descricao,
+  image: new URL(p.imagens[0], SITE.url).href,
+  offers: {
+    '@type': 'Offer',
+    price: p.preco.toFixed(2),
+    priceCurrency: 'BRL',
+    availability: 'https://schema.org/InStock',
+    url: new URL(`/produto/${p.id}`, SITE.url).href,
+  },
+};
+---
+
+<BaseLayout title={p.nome} description={p.descricao}>
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+  <section class="mx-auto max-w-6xl px-4 py-8 lg:py-12">
+    <nav class="text-sm text-ink-soft" aria-label="Você está em">
+      <a href="/catalogo" class="font-semibold hover:text-brand-deep">Catálogo</a>
+      <span aria-hidden="true"> / </span>
+      <a
+        href={`/catalogo?categoria=${p.categoria}`}
+        class="font-semibold hover:text-brand-deep"
+      >
+        {rotuloCategoria(p.categoria)}
+      </a>
+      <span aria-hidden="true"> / </span>
+      <span aria-current="page">{p.nome}</span>
+    </nav>
+
+    <div class="mt-6 grid items-start gap-8 lg:grid-cols-2 lg:gap-12">
+      <div class="card overflow-hidden p-3">
+        <img
+          src={p.imagens[0]}
+          alt={p.nome}
+          width="800"
+          height="800"
+          class="aspect-square w-full rounded-xl border border-line object-cover"
+        />
+      </div>
+
+      <div>
+        <span class:list={['tag-cat', `tag-${p.categoria}`]}>
+          {rotuloCategoria(p.categoria)}{p.subcategoria && ` · ${rotuloSub(p.subcategoria)}`}
+        </span>
+        <h1 class="mt-3 font-display text-3xl font-extrabold sm:text-4xl">{p.nome}</h1>
+        <p class="mt-4 font-display text-3xl font-extrabold text-brand-deep">{brl(p.preco)}</p>
+        <p class="mt-4 leading-relaxed text-ink-soft">{p.descricao}</p>
+
+        <div class="mt-8">
+          <AddToCart
+            client:load
+            produto={{
+              id: p.id,
+              nome: p.nome,
+              preco: p.preco,
+              imagem: p.imagens[0],
+              variacoes: p.variacoes,
+            }}
+          />
+        </div>
+
+        <div class="mt-8 space-y-2.5 border-t border-line pt-6 text-sm text-ink-soft">
+          <p class="flex items-center gap-2.5">
+            <Icon name="map-pin" class="h-4.5 w-4.5 shrink-0 text-brand-strong" />
+            Retirada na loja, no centro de Jeriquara — ou entrega combinada no WhatsApp.
+          </p>
+          <p class="flex items-center gap-2.5">
+            <Icon name="check" class="h-4.5 w-4.5 shrink-0 text-brand-strong" />
+            Pagamento combinado direto com a loja: Pix, dinheiro ou cartão.
+          </p>
+          <p class="flex items-center gap-2.5">
+            <Icon name="whatsapp" class="h-4.5 w-4.5 shrink-0 text-brand-strong" stroke={1.6} />
+            <span>
+              Dúvida sobre este produto?
+              <a
+                href={linkPerguntar}
+                target="_blank"
+                rel="noopener"
+                class="font-bold text-brand-deep underline underline-offset-4"
+              >
+                Pergunta pra gente
+              </a>
+            </span>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    {
+      relacionados.length > 0 && (
+        <section class="mt-16" aria-labelledby="titulo-relacionados">
+          <h2 id="titulo-relacionados" class="font-display text-2xl font-extrabold">
+            Quem viu este também olhou
+          </h2>
+          <div class="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+            {relacionados.map((r) => (
+              <ProductCard produto={r} />
+            ))}
+          </div>
+        </section>
+      )
+    }
+  </section>
+</BaseLayout>

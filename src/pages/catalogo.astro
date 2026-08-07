@@ -1,0 +1,181 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+import ProductCard from '../components/ProductCard.astro';
+import { getProducts } from '../lib/catalog';
+import { rotuloSub } from '../lib/labels';
+import { waLink } from '../lib/whatsapp';
+
+const produtos = await getProducts();
+
+// subcategorias existentes, agrupadas por categoria (viram chips de filtro)
+const subs: { slug: string; pai: string }[] = [];
+for (const p of produtos) {
+  if (p.subcategoria && !subs.some((s) => s.slug === p.subcategoria && s.pai === p.categoria)) {
+    subs.push({ slug: p.subcategoria, pai: p.categoria });
+  }
+}
+
+const linkNaoAchei = waLink(
+  'Olá, Micro Fran! Procurei um produto no site e não achei. Vocês têm na loja?',
+);
+---
+
+<BaseLayout
+  title="Catálogo"
+  description="Catálogo da Micro Fran: papelaria e informática em Jeriquara/SP com preço na etiqueta. Monte o carrinho e finalize no WhatsApp."
+>
+  <section class="mx-auto max-w-6xl px-4 py-10 lg:py-14">
+    <header class="max-w-2xl">
+      <h1 class="font-display text-4xl font-extrabold sm:text-5xl">Catálogo</h1>
+      <p class="mt-3 text-lg text-ink-soft">
+        Papelaria e informática com preço na etiqueta. Adicione ao carrinho e finalize no WhatsApp.
+      </p>
+      <p class="mt-2 text-sm text-ink-soft">
+        Procurando impressão, banner ou cartão? Isso fica em
+        <a href="/solucoes-graficas" class="font-bold text-brand-deep underline underline-offset-4">
+          Soluções Gráficas</a
+        >, sob orçamento.
+      </p>
+    </header>
+
+    <!-- filtros -->
+    <div class="sticky top-16 z-30 -mx-4 mt-8 border-b border-line bg-paper/90 px-4 py-4 backdrop-blur-md">
+      <div class="relative max-w-md">
+        <Icon name="search" class="pointer-events-none absolute left-4 top-1/2 h-4.5 w-4.5 -translate-y-1/2 text-ink-soft" />
+        <input
+          id="busca"
+          type="search"
+          class="input"
+          placeholder="Buscar produto… (ex.: caderno, mouse)"
+          aria-label="Buscar produto"
+          autocomplete="off"
+        />
+      </div>
+      <div class="mt-3 flex flex-wrap gap-2" role="group" aria-label="Filtrar por categoria">
+        <button type="button" class="chip" data-chip-cat="todas" aria-pressed="true">Tudo</button>
+        <button type="button" class="chip" data-chip-cat="papelaria" aria-pressed="false">
+          Papelaria
+        </button>
+        <button type="button" class="chip" data-chip-cat="informatica" aria-pressed="false">
+          Informática
+        </button>
+        <span class="ml-auto self-center text-sm font-semibold text-ink-soft" id="info-resultado" aria-live="polite"></span>
+      </div>
+      <div class="mt-2 flex flex-wrap gap-2" id="chips-sub" role="group" aria-label="Filtrar por tipo">
+        {subs.map((s) => (
+          <button
+            type="button"
+            class="chip !py-1.5 !text-xs"
+            data-chip-sub={s.slug}
+            data-pai={s.pai}
+            aria-pressed="false"
+            hidden
+          >
+            {rotuloSub(s.slug)}
+          </button>
+        ))}
+      </div>
+    </div>
+
+    <!-- grade -->
+    <div class="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+      {produtos.map((p) => <ProductCard produto={p} />)}
+    </div>
+
+    <!-- estado vazio -->
+    <div id="sem-resultado" hidden class="card mx-auto mt-8 max-w-lg px-8 py-12 text-center">
+      <p class="font-display text-xl font-extrabold">Nada por aqui com esse filtro</p>
+      <p class="mt-2 text-sm text-ink-soft">
+        Mas a prateleira da loja é maior que o site — chama no WhatsApp que a gente confere pra
+        você.
+      </p>
+      <div class="mt-5 flex flex-wrap justify-center gap-3">
+        <button type="button" id="btn-limpar" class="btn btn-ghost btn-sm">Limpar filtros</button>
+        <a href={linkNaoAchei} target="_blank" rel="noopener" class="btn btn-wa btn-sm">
+          <Icon name="whatsapp" class="h-4.5 w-4.5" stroke={1.6} />
+          Perguntar no WhatsApp
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  const norm = (t: string) =>
+    t.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+
+  const cards = Array.from(document.querySelectorAll<HTMLElement>('[data-card]'));
+  const chipsCat = Array.from(document.querySelectorAll<HTMLElement>('[data-chip-cat]'));
+  const chipsSub = Array.from(document.querySelectorAll<HTMLElement>('[data-chip-sub]'));
+  const busca = document.getElementById('busca') as HTMLInputElement | null;
+  const info = document.getElementById('info-resultado');
+  const vazio = document.getElementById('sem-resultado');
+  const limpar = document.getElementById('btn-limpar');
+
+  let cat = 'todas';
+  let sub = '';
+  let termo = '';
+
+  function aplicar() {
+    let n = 0;
+    for (const card of cards) {
+      const okCat = cat === 'todas' || card.dataset.categoria === cat;
+      const okSub = !sub || card.dataset.subcategoria === sub;
+      const okTermo = !termo || (card.dataset.nome ?? '').includes(termo);
+      const mostra = okCat && okSub && okTermo;
+      card.toggleAttribute('hidden', !mostra);
+      if (mostra) n++;
+    }
+    for (const c of chipsCat) c.setAttribute('aria-pressed', String(c.dataset.chipCat === cat));
+    for (const c of chipsSub) {
+      const visivel = cat !== 'todas' && c.dataset.pai === cat;
+      c.toggleAttribute('hidden', !visivel);
+      c.setAttribute('aria-pressed', String(visivel && c.dataset.chipSub === sub));
+    }
+    if (info) info.textContent = n === 1 ? '1 produto' : `${n} produtos`;
+    vazio?.toggleAttribute('hidden', n > 0);
+
+    const params = new URLSearchParams();
+    if (cat !== 'todas') params.set('categoria', cat);
+    if (busca?.value.trim()) params.set('busca', busca.value.trim());
+    const qs = params.toString();
+    history.replaceState(null, '', qs ? `?${qs}` : location.pathname);
+  }
+
+  for (const c of chipsCat) {
+    c.addEventListener('click', () => {
+      cat = c.dataset.chipCat ?? 'todas';
+      sub = '';
+      aplicar();
+    });
+  }
+  for (const c of chipsSub) {
+    c.addEventListener('click', () => {
+      sub = c.dataset.chipSub === sub ? '' : (c.dataset.chipSub ?? '');
+      aplicar();
+    });
+  }
+  busca?.addEventListener('input', () => {
+    termo = norm(busca.value.trim());
+    aplicar();
+  });
+  limpar?.addEventListener('click', () => {
+    cat = 'todas';
+    sub = '';
+    termo = '';
+    if (busca) busca.value = '';
+    aplicar();
+  });
+
+  // estado inicial vindo da URL (ex.: /catalogo?categoria=papelaria)
+  const params = new URLSearchParams(location.search);
+  const c0 = params.get('categoria');
+  if (c0 === 'papelaria' || c0 === 'informatica') cat = c0;
+  const b0 = params.get('busca');
+  if (b0) {
+    termo = norm(b0);
+    if (busca) busca.value = b0;
+  }
+  aplicar();
+</script>

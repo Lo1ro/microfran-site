@@ -1,0 +1,322 @@
+@import 'tailwindcss';
+
+/* ────────────────────────────────────────────────────────────────────────────
+   Micro Fran — design tokens
+   Papel quente + tinta escura, laranja da marca como cor de ação e as oito
+   pétalas CMYK da logo como tempero (tags, blobs, divisores). AA garantido:
+   texto sobre laranja usa marrom-tinta, links usam o laranja profundo.
+──────────────────────────────────────────────────────────────────────────── */
+@theme {
+  --font-display: 'Bricolage Grotesque Variable', 'Trebuchet MS', sans-serif;
+  --font-sans: 'Hanken Grotesk Variable', 'Segoe UI', sans-serif;
+
+  /* neutros — papel e tinta */
+  --color-paper: #faf6ef;
+  --color-surface: #ffffff;
+  --color-ink: #2b2b2b;
+  --color-ink-soft: #6e655b;
+  --color-line: #eae1d2;
+
+  /* laranja da marca */
+  --color-brand: #f5821f;
+  --color-brand-strong: #dd6c0d;
+  --color-brand-deep: #a64d06;
+  --color-brand-ink: #3f1d02;
+  --color-brand-soft: #fcebd8;
+
+  /* WhatsApp */
+  --color-wa: #25d366;
+  --color-wa-strong: #1cbf5b;
+  --color-wa-ink: #053420;
+
+  /* pétalas da logo */
+  --color-petal-rosa: #e85d9c;
+  --color-petal-azul: #3e6fd9;
+  --color-petal-ciano: #27b5db;
+  --color-petal-agua: #2fbfa3;
+  --color-petal-verde: #72c247;
+  --color-petal-amarelo: #f2bb2f;
+  --color-petal-roxo: #8a5bc7;
+
+  --shadow-card: 0 1px 2px rgb(43 33 23 / 0.06), 0 10px 28px -14px rgb(43 33 23 / 0.22);
+  --shadow-pop: 0 16px 44px -16px rgb(43 33 23 / 0.35);
+}
+
+@layer base {
+  ::selection {
+    background: var(--color-brand-soft);
+    color: var(--color-brand-ink);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.015em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-brand-deep);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  /* o filtro do catálogo esconde cards via atributo hidden — precisa vencer
+     qualquer classe de display (flex/grid) do próprio card */
+  [hidden] {
+    display: none !important;
+  }
+}
+
+@layer components {
+  /* link de acessibilidade */
+  .skip-link {
+    position: absolute;
+    left: -9999px;
+    z-index: 100;
+    border-radius: 999px;
+    background: var(--color-ink);
+    color: #fff;
+    padding: 0.6rem 1.2rem;
+    font-weight: 700;
+    font-size: 0.9rem;
+  }
+  .skip-link:focus-visible {
+    left: 0.75rem;
+    top: 0.75rem;
+  }
+
+  /* ── botões ─────────────────────────────────────────────────────────── */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border-radius: 999px;
+    border: 1.5px solid transparent;
+    padding: 0.8rem 1.6rem;
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+    font-weight: 700;
+    line-height: 1.1;
+    cursor: pointer;
+    transition:
+      background-color 0.15s ease,
+      border-color 0.15s ease,
+      color 0.15s ease,
+      transform 0.15s ease,
+      box-shadow 0.15s ease;
+  }
+  .btn:active {
+    transform: scale(0.97);
+  }
+  .btn-sm {
+    padding: 0.55rem 1.05rem;
+    font-size: 0.85rem;
+  }
+  .btn-lg {
+    padding: 1rem 2rem;
+    font-size: 1.05rem;
+  }
+  .btn-primary {
+    background: var(--color-brand);
+    color: var(--color-brand-ink);
+    box-shadow: var(--shadow-card);
+  }
+  .btn-primary:hover {
+    background: var(--color-brand-strong);
+  }
+  .btn-wa {
+    background: var(--color-wa);
+    color: var(--color-wa-ink);
+    box-shadow: var(--shadow-card);
+  }
+  .btn-wa:hover {
+    background: var(--color-wa-strong);
+  }
+  .btn-ghost {
+    border-color: var(--color-line);
+    background: var(--color-surface);
+    color: var(--color-ink);
+  }
+  .btn-ghost:hover {
+    border-color: var(--color-brand);
+    color: var(--color-brand-deep);
+  }
+  .btn-contorno-claro {
+    border-color: rgb(255 255 255 / 0.35);
+    color: #fff;
+  }
+  .btn-contorno-claro:hover {
+    border-color: #fff;
+    background: rgb(255 255 255 / 0.08);
+  }
+  .btn-ok {
+    background: var(--color-petal-verde);
+    color: #16330a;
+  }
+
+  /* ── cartões e chips ────────────────────────────────────────────────── */
+  .card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-line);
+    border-radius: 1.25rem;
+    box-shadow: var(--shadow-card);
+  }
+
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    border-radius: 999px;
+    border: 1.5px solid var(--color-line);
+    background: var(--color-surface);
+    padding: 0.45rem 1rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--color-ink);
+    cursor: pointer;
+    transition:
+      background-color 0.15s ease,
+      border-color 0.15s ease,
+      color 0.15s ease;
+  }
+  .chip:hover {
+    border-color: var(--color-brand);
+    color: var(--color-brand-deep);
+  }
+  .chip[aria-pressed='true'] {
+    background: var(--color-ink);
+    border-color: var(--color-ink);
+    color: #fff;
+  }
+
+  /* tag de categoria (cores das pétalas, com contraste AA) */
+  .tag-cat {
+    display: inline-block;
+    border-radius: 999px;
+    padding: 0.22rem 0.6rem;
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+  }
+  .tag-papelaria {
+    background: #fbe3ef;
+    color: #a02061;
+  }
+  .tag-informatica {
+    background: #e3eafb;
+    color: #2a4ca0;
+  }
+  .tag-grafica {
+    background: #eee6fa;
+    color: #633b9e;
+  }
+
+  /* ── campos ─────────────────────────────────────────────────────────── */
+  .input {
+    width: 100%;
+    border-radius: 999px;
+    border: 1.5px solid var(--color-line);
+    background: var(--color-surface);
+    padding: 0.72rem 1.1rem 0.72rem 2.7rem;
+    font-size: 0.95rem;
+    color: var(--color-ink);
+  }
+  .input::placeholder {
+    color: var(--color-ink-soft);
+  }
+  .input:focus {
+    outline: none;
+    border-color: var(--color-brand);
+    box-shadow: 0 0 0 3px var(--color-brand-soft);
+  }
+
+  /* ── pétalas decorativas (blobs de fundo) ───────────────────────────── */
+  .petal-blob {
+    position: absolute;
+    border-radius: 50%;
+    background: var(--blob-c, var(--color-petal-rosa));
+    mix-blend-mode: multiply;
+    filter: blur(52px);
+    opacity: 0.4;
+    animation: petal-drift 18s ease-in-out infinite alternate;
+    pointer-events: none;
+  }
+  .petal-blob-claro {
+    mix-blend-mode: screen;
+    opacity: 0.22;
+  }
+
+  /* ── reveal ao rolar ────────────────────────────────────────────────── */
+  /* Só esconde quando há JS (html.js). Sem JS — ou antes de ele carregar —
+     o conteúdo aparece normalmente: o hero nunca fica invisível. */
+  .js .reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    transition:
+      opacity 0.6s cubic-bezier(0.22, 0.61, 0.36, 1),
+      transform 0.6s cubic-bezier(0.22, 0.61, 0.36, 1);
+    transition-delay: var(--reveal-delay, 0s);
+  }
+  .js .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes petal-drift {
+  from {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  to {
+    transform: translate3d(5%, 7%, 0) scale(1.12);
+  }
+}
+
+@keyframes flutua {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes gira-devagar {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .petal-blob,
+  [style*='flutua'],
+  [style*='gira-devagar'] {
+    animation: none !important;
+  }
+  .js .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}

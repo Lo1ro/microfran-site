@@ -1,0 +1,63 @@
+---
+/**
+ * Logomarca — recriação em SVG do monograma "mf" com pétalas translúcidas.
+ * {{PLACEHOLDER}}: quando o dono mandar o arquivo original da logo, basta
+ * trocar este componente por um <img> (mantendo o alt).
+ */
+interface Props {
+  class?: string;
+  wordmark?: boolean;
+  dark?: boolean;
+}
+const { class: className = 'h-10', wordmark = true, dark = false } = Astro.props;
+
+const petalas = [
+  'var(--color-petal-rosa)',
+  'var(--color-petal-roxo)',
+  'var(--color-petal-azul)',
+  'var(--color-petal-ciano)',
+  'var(--color-petal-agua)',
+  'var(--color-petal-verde)',
+  'var(--color-petal-amarelo)',
+  'var(--color-brand)',
+];
+---
+
+<span class:list={['inline-flex items-center gap-2.5', className]}>
+  <svg viewBox="0 0 64 64" class="h-full w-auto shrink-0" role="img" aria-label="Logomarca Micro Fran">
+    {petalas.map((cor, i) => (
+      <ellipse
+        cx="32"
+        cy="17.5"
+        rx="10.5"
+        ry="15.5"
+        fill={cor}
+        fill-opacity="0.8"
+        transform={`rotate(${i * 45} 32 32)`}
+      />
+    ))}
+    <text
+      x="32"
+      y="38.5"
+      text-anchor="middle"
+      font-family="var(--font-display)"
+      font-size="19"
+      font-weight="800"
+      fill="#ffffff">mf</text>
+  </svg>
+  {wordmark && (
+    <span class="leading-none">
+      <span class="block font-display text-[1.18rem] font-extrabold tracking-tight text-brand-strong">
+        Micro Fran
+      </span>
+      <span
+        class:list={[
+          'mt-1 block text-[0.6rem] font-bold uppercase tracking-[0.13em]',
+          dark ? 'text-white/70' : 'text-ink-soft',
+        ]}
+      >
+        Informática · Papelaria · Gráfica
+      </span>
+    </span>
+  )}
+</span>

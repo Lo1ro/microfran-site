@@ -1,0 +1,29 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+import PetalBloom from '../components/PetalBloom.astro';
+import { waPadrao } from '../lib/whatsapp';
+---
+
+<BaseLayout title="Página não encontrada" noIndex>
+  <section class="relative isolate overflow-hidden">
+    <PetalBloom variant="hero" />
+    <div class="relative mx-auto max-w-2xl px-4 py-24 text-center">
+      <p class="font-display text-7xl font-extrabold text-brand-strong">404</p>
+      <h1 class="mt-4 font-display text-3xl font-extrabold">
+        Essa página saiu pra entrega e não voltou.
+      </h1>
+      <p class="mt-3 text-lg text-ink-soft">
+        O endereço pode ter mudado — mas o que você procura provavelmente está no catálogo.
+      </p>
+      <div class="mt-8 flex flex-wrap justify-center gap-3">
+        <a href="/" class="btn btn-primary">Voltar pro início</a>
+        <a href="/catalogo" class="btn btn-ghost">Ver catálogo</a>
+        <a href={waPadrao()} target="_blank" rel="noopener" class="btn btn-wa">
+          <Icon name="whatsapp" class="h-4.5 w-4.5" stroke={1.6} />
+          Pedir ajuda no WhatsApp
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

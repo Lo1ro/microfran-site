@@ -1,0 +1,64 @@
+---
+/** Conjunto de ícones em traço (stroke) do site. Uso: <Icon name="printer" /> */
+interface Props {
+  name: string;
+  class?: string;
+  stroke?: number;
+}
+const { name, class: className = 'h-5 w-5', stroke = 1.8 } = Astro.props;
+
+const icons: Record<string, string> = {
+  cart: '<circle cx="9" cy="20" r="1.6"/><circle cx="17.5" cy="20" r="1.6"/><path d="M3 4h2.2l2.3 11h10.6l2-8H6.2"/>',
+  menu: '<path d="M4 7h16M4 12h16M4 17h16"/>',
+  x: '<path d="M6 6l12 12M18 6L6 18"/>',
+  search: '<circle cx="11" cy="11" r="6.5"/><path d="m16.2 16.2 4.8 4.8"/>',
+  whatsapp:
+    '<path d="M12 3.5a8.5 8.5 0 0 0-7.3 12.8L3.5 20.5l4.3-1.1A8.5 8.5 0 1 0 12 3.5Z"/><path d="M9.1 8.2c.3-.7.9-.75 1.2-.1l.55 1.1c.12.25.07.55-.11.78l-.5.62a6.1 6.1 0 0 0 2.86 2.86l.62-.5c.23-.18.53-.23.78-.11l1.1.55c.65.32.6.95-.1 1.3-.72.36-1.55.44-2.32.18a8.2 8.2 0 0 1-4.66-4.66c-.26-.77-.15-1.62.58-2.02Z"/>',
+  'map-pin':
+    '<path d="M12 21s-6.5-5.2-6.5-10a6.5 6.5 0 0 1 13 0c0 4.8-6.5 10-6.5 10Z"/><circle cx="12" cy="10.5" r="2.3"/>',
+  clock: '<circle cx="12" cy="12" r="8.5"/><path d="M12 7v5l3.2 1.8"/>',
+  phone:
+    '<path d="M5 4h3l1.5 4-2 1.5a12 12 0 0 0 6 6L15 13.5l4 1.5v3a2 2 0 0 1-2.2 2A16 16 0 0 1 3 6.2 2 2 0 0 1 5 4Z"/>',
+  instagram:
+    '<rect x="3.5" y="3.5" width="17" height="17" rx="4.5"/><circle cx="12" cy="12" r="3.8"/><circle cx="16.9" cy="7.1" r="1.1" fill="currentColor" stroke="none"/>',
+  facebook:
+    '<path d="M14.5 8.5H17V5h-2.5A3.5 3.5 0 0 0 11 8.5V11H8.5v3.5H11V21h3.5v-6.5H17l.5-3.5h-4Z" fill="currentColor" stroke="none"/>',
+  star: '<path d="M12 2.8l2.8 5.8 6.4.9-4.6 4.5 1.1 6.3-5.7-3-5.7 3 1.1-6.3L2.8 9.5l6.4-.9Z" fill="currentColor" stroke="none"/>',
+  'arrow-right': '<path d="M4 12h15m-6-6 6 6-6 6"/>',
+  check: '<path d="M4.5 12.5 10 18 19.5 6.5"/>',
+  printer:
+    '<path d="M7 8V3.5h10V8"/><path d="M7 16H5.5A1.5 1.5 0 0 1 4 14.5v-5A1.5 1.5 0 0 1 5.5 8h13A1.5 1.5 0 0 1 20 9.5v5a1.5 1.5 0 0 1-1.5 1.5H17"/><rect x="7" y="13.5" width="10" height="7" rx="1"/>',
+  idcard:
+    '<rect x="3" y="5.5" width="18" height="13" rx="2"/><circle cx="8.5" cy="11" r="1.8"/><path d="M5.8 15.6c.5-1.6 4.9-1.6 5.4 0M14 9.5h4.5M14 12.5h4.5M14 15.5h3"/>',
+  flag: '<path d="M5 21V3.5"/><path d="M5 4.5h13.5l-2.6 4 2.6 4H5"/>',
+  sticker:
+    '<path d="M4 6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v7l-7 7H6a2 2 0 0 1-2-2Z"/><path d="M13 20v-5a2 2 0 0 1 2-2h5"/>',
+  book: '<path d="M4 19.5V6a2 2 0 0 1 2-2h14v16H6a2 2 0 0 0-2 2Z"/><path d="M20 20H6a2 2 0 0 1-2-2"/><path d="M9 4v16"/>',
+  layers:
+    '<path d="M12 3 21 8l-9 5-9-5Z"/><path d="m4.5 12.2 7.5 4.2 7.5-4.2"/><path d="m4.5 16.2 7.5 4.2 7.5-4.2"/>',
+  gift: '<rect x="4" y="10.5" width="16" height="10" rx="1.5"/><path d="M4 10.5h16M12 7v13.5"/><path d="M12 7C10 7 7.6 6.5 7.6 4.8c0-1.6 2.1-2 3.2-1 .8.8 1.2 3.2 1.2 3.2s.4-2.4 1.2-3.2c1.1-1 3.2-.6 3.2 1C16.4 6.5 14 7 12 7Z"/>',
+  copies:
+    '<rect x="4" y="3" width="13" height="16" rx="2"/><path d="M20 7.5V19a2 2 0 0 1-2 2H8.5"/>',
+  pencil:
+    '<path d="m4 20 1-4L16.5 4.5a2.12 2.12 0 0 1 3 3L8 19l-4 1Z"/><path d="m14.5 6.5 3 3"/>',
+  store:
+    '<path d="M4 9.5 5.5 4h13L20 9.5"/><path d="M4 9.5a2.5 2.5 0 0 0 5 0 2.5 2.5 0 0 0 5 0 2.5 2.5 0 0 0 5 0"/><path d="M5 12v8h14v-8"/><path d="M9.5 20v-5h5v5"/>',
+  monitor:
+    '<rect x="3" y="4.5" width="18" height="12.5" rx="2"/><path d="M9 21h6M12 17v4"/>',
+  heart:
+    '<path d="M12 20.5S4 15 4 9.5A4.5 4.5 0 0 1 12 6.7a4.5 4.5 0 0 1 8 2.8c0 5.5-8 11-8 11Z"/>',
+};
+---
+
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width={stroke}
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class={className}
+  aria-hidden="true"
+  set:html={icons[name] ?? ''}
+/>

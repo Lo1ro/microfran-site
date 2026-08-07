@@ -1,0 +1,14 @@
+---
+import Icon from './Icon.astro';
+import { waPadrao } from '../lib/whatsapp';
+---
+
+<a
+  href={waPadrao()}
+  target="_blank"
+  rel="noopener"
+  aria-label="Falar com a Micro Fran no WhatsApp"
+  class="fixed bottom-5 right-5 z-50 grid h-14 w-14 place-items-center rounded-full bg-wa text-wa-ink shadow-pop transition-transform hover:scale-110 motion-reduce:transition-none"
+>
+  <Icon name="whatsapp" class="h-7 w-7" stroke={1.6} />
+</a>

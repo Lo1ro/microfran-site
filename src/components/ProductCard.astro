@@ -1,0 +1,55 @@
+---
+import type { Product } from '../lib/types';
+import { brl } from '../lib/money';
+import { normalizar, rotuloCategoria } from '../lib/labels';
+import AddToCart from './islands/AddToCart';
+
+interface Props {
+  produto: Product;
+}
+const { produto: p } = Astro.props;
+const temVariacoes = p.variacoes.length > 0;
+---
+
+<article
+  class="card group flex flex-col overflow-hidden transition-transform duration-200 hover:-translate-y-1"
+  data-card
+  data-nome={normalizar(`${p.nome} ${p.descricao}`)}
+  data-categoria={p.categoria}
+  data-subcategoria={p.subcategoria}
+>
+  <a href={`/produto/${p.id}`} class="block p-3 pb-0">
+    <div class="overflow-hidden rounded-xl border border-line bg-surface">
+      <img
+        src={p.imagens[0]}
+        alt={p.nome}
+        width="800"
+        height="800"
+        loading="lazy"
+        class="aspect-square w-full object-cover transition-transform duration-300 group-hover:scale-[1.04] motion-reduce:transition-none"
+      />
+    </div>
+  </a>
+  <div class="flex flex-1 flex-col gap-2 p-4">
+    <span class:list={['tag-cat self-start', `tag-${p.categoria}`]}>
+      {rotuloCategoria(p.categoria)}
+    </span>
+    <a href={`/produto/${p.id}`} class="hover:text-brand-deep">
+      <h3 class="line-clamp-2 min-h-[2.6em] text-[0.95rem] font-bold leading-snug">{p.nome}</h3>
+    </a>
+    <p class="font-display text-lg font-extrabold">{brl(p.preco)}</p>
+    {
+      temVariacoes ? (
+        <a href={`/produto/${p.id}`} class="btn btn-ghost btn-sm w-full">
+          Escolher opções
+        </a>
+      ) : (
+        <AddToCart
+          client:visible
+          produto={{ id: p.id, nome: p.nome, preco: p.preco, imagem: p.imagens[0] }}
+          compact
+        />
+      )
+    }
+  </div>
+</article>

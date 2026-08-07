@@ -1,0 +1,26 @@
+---
+import Icon from './Icon.astro';
+import { getGoogleRating, notaFormatada } from '../lib/rating';
+
+interface Props {
+  class?: string;
+}
+const { class: className = '' } = Astro.props;
+const r = await getGoogleRating();
+---
+
+<a
+  href={r.url}
+  target="_blank"
+  rel="noopener"
+  class:list={[
+    'inline-flex items-center gap-2 rounded-full border-[1.5px] border-line bg-surface py-2 pl-3 pr-4 text-sm font-semibold text-ink shadow-card transition hover:border-brand',
+    className,
+  ]}
+>
+  <Icon name="star" class="h-4.5 w-4.5 text-[#d98e00]" />
+  <span>
+    <strong class="font-display font-extrabold">{notaFormatada(r.nota)}</strong>
+    <span class="text-ink-soft">· {r.total} avaliações no Google</span>
+  </span>
+</a>

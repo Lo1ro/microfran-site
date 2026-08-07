@@ -1,0 +1,118 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+import PetalBloom from '../components/PetalBloom.astro';
+import RatingBadge from '../components/RatingBadge.astro';
+import { SITE, mapsComoChegar } from '../config';
+import { waPadrao } from '../lib/whatsapp';
+
+/*
+ * {{PLACEHOLDER}} — texto "semente" aprovado no brief. Quando o dono passar a
+ * história real (ano exato de fundação, nomes da família, causos), é só
+ * enriquecer os parágrafos abaixo sem perder o tom.
+ */
+
+const valores = [
+  {
+    icone: 'heart',
+    titulo: 'Atendimento pelo nome',
+    texto: 'Cliente aqui não é número. É vizinho, é conhecido, é a família inteira que compra desde sempre.',
+    cor: 'text-petal-rosa',
+  },
+  {
+    icone: 'store',
+    titulo: 'Tudo num lugar só',
+    texto: 'Da lista de material ao cartucho da impressora, do banner da festa ao xerox de última hora.',
+    cor: 'text-petal-azul',
+  },
+  {
+    icone: 'check',
+    titulo: 'Preço justo, conversa direta',
+    texto: 'Sem pegadinha: o preço tá na etiqueta e o combinado se resolve no balcão ou no WhatsApp.',
+    cor: 'text-petal-verde',
+  },
+];
+---
+
+<BaseLayout
+  title="Sobre a loja"
+  description={`Há ${SITE.anosDeLoja} anos em Jeriquara/SP: a história da Micro Fran, a loja que reúne papelaria, informática e soluções gráficas num lugar só.`}
+>
+  <section class="relative isolate overflow-hidden">
+    <PetalBloom variant="hero" />
+    <div class="relative mx-auto max-w-6xl px-4 pb-14 pt-14 lg:pt-20">
+      <p class="reveal inline-flex items-center gap-2 rounded-full border-[1.5px] border-line bg-surface px-4 py-1.5 text-xs font-extrabold uppercase tracking-[0.12em] text-ink-soft">
+        <Icon name="heart" class="h-4 w-4 text-petal-rosa" />
+        Nossa história
+      </p>
+      <h1 class="reveal mt-5 max-w-3xl font-display text-4xl font-extrabold leading-[1.05] sm:text-5xl" style="--reveal-delay:.08s">
+        {SITE.anosDeLoja} anos de balcão, papel e tinta.
+      </h1>
+      <div class="reveal mt-6 max-w-2xl space-y-4 text-lg leading-relaxed text-ink-soft" style="--reveal-delay:.16s">
+        <p>
+          A Micro Fran nasceu em Jeriquara há quase {SITE.anosDeLoja} anos com uma ideia simples:
+          reunir num lugar só o material de escola, os suprimentos de informática e os serviços de
+          gráfica que a cidade precisa — com o atendimento de quem conhece o cliente pelo nome.
+        </p>
+        <p>
+          De lá pra cá, muita coisa mudou: a lista de material ficou digital, a impressora virou
+          multifuncional e o pedido agora também chega pelo WhatsApp. O que não mudou foi o jeito de
+          atender — com calma, com conversa e com a certeza de que, se não tiver na prateleira, a
+          gente corre atrás.
+        </p>
+        <p>
+          Este site é o passo mais novo dessa história: a lojinha do centro, agora aberta o dia
+          inteiro no seu celular.
+        </p>
+      </div>
+      <div class="reveal mt-8" style="--reveal-delay:.24s">
+        <RatingBadge />
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-4 pb-16" aria-label="O que a gente valoriza">
+    <div class="grid gap-4 md:grid-cols-3">
+      {valores.map((v, i) => (
+        <div class="card reveal p-6" style={`--reveal-delay:${i * 0.08}s`}>
+          <span class:list={['grid h-12 w-12 place-items-center rounded-2xl border border-line bg-paper', v.cor]}>
+            <Icon name={v.icone} class="h-6 w-6" />
+          </span>
+          <h2 class="mt-4 font-display text-xl font-extrabold">{v.titulo}</h2>
+          <p class="mt-2 text-sm leading-relaxed text-ink-soft">{v.texto}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- {{PLACEHOLDER}} — trocar por foto real da fachada/equipe quando houver -->
+  <section class="mx-auto max-w-6xl px-4 pb-16" aria-hidden="true">
+    <div class="relative isolate overflow-hidden rounded-3xl border border-line bg-surface/70 px-8 py-16 text-center">
+      <PetalBloom variant="faixa" />
+      <p class="relative font-display text-xl font-extrabold text-ink-soft/70">
+        Em breve: fotos da loja e da equipe aqui 📷
+      </p>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-4 pb-20">
+    <div class="card flex flex-col items-start justify-between gap-6 p-8 sm:flex-row sm:items-center">
+      <div>
+        <h2 class="font-display text-2xl font-extrabold">Passa lá na loja</h2>
+        <p class="mt-2 text-ink-soft">
+          {SITE.endereco.rua} — {SITE.endereco.bairro}, {SITE.endereco.cidade}/{SITE.endereco.uf}
+        </p>
+      </div>
+      <div class="flex flex-wrap gap-3">
+        <a href={mapsComoChegar()} target="_blank" rel="noopener" class="btn btn-ghost">
+          <Icon name="map-pin" class="h-4.5 w-4.5" />
+          Como chegar
+        </a>
+        <a href={waPadrao()} target="_blank" rel="noopener" class="btn btn-wa">
+          <Icon name="whatsapp" class="h-4.5 w-4.5" stroke={1.6} />
+          Chamar no WhatsApp
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

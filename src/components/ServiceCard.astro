@@ -1,0 +1,41 @@
+---
+import type { Service } from '../lib/types';
+import Icon from './Icon.astro';
+import { mensagemOrcamento, waLink } from '../lib/whatsapp';
+
+interface Props {
+  servico: Service;
+  /** cor da pétala usada no ícone (classe de texto) */
+  cor?: string;
+}
+const { servico: s, cor = 'text-petal-roxo' } = Astro.props;
+---
+
+<article class="card flex flex-col p-6 transition-transform duration-200 hover:-translate-y-1">
+  <span
+    class:list={[
+      'grid h-12 w-12 place-items-center rounded-2xl border border-line bg-paper',
+      cor,
+    ]}
+  >
+    <Icon name={s.icone} class="h-6 w-6" />
+  </span>
+  <h3 class="mt-4 font-display text-xl font-extrabold">{s.nome}</h3>
+  <p class="mt-2 flex-1 text-sm leading-relaxed text-ink-soft">{s.descricao}</p>
+  {
+    s.exemplos.length > 0 && (
+      <p class="mt-3 text-xs font-semibold uppercase tracking-wide text-ink-soft/80">
+        {s.exemplos.join(' · ')}
+      </p>
+    )
+  }
+  <a
+    href={waLink(mensagemOrcamento(s.nome))}
+    target="_blank"
+    rel="noopener"
+    class="btn btn-wa btn-sm mt-5 w-full"
+  >
+    <Icon name="whatsapp" class="h-4.5 w-4.5" stroke={1.6} />
+    Pedir orçamento no WhatsApp
+  </a>
+</article>
