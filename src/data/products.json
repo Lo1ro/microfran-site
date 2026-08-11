@@ -6,20 +6,28 @@
     "subcategoria": "cadernos",
     "preco": 18.9,
     "descricao": "Caderno espiral capa dura, 96 folhas pautadas. Aguenta o ano letivo inteiro sem soltar folha.",
-    "imagens": ["/img/produtos/cad-univ-96.svg"],
-    "variacoes": ["Capa azul", "Capa rosa", "Capa verde"],
+    "imagens": [
+      "/img/produtos/cad-univ-96.svg"
+    ],
+    "variacoes": [
+      "Capa azul",
+      "Capa rosa",
+      "Capa verde"
+    ],
     "estoque": null,
     "ativo": true,
     "destaque": true
   },
   {
     "id": "cad-broch-80",
-    "nome": "Caderno brochura 80 folhas",
+    "nome": "Caderno Brochurão Foroni",
     "categoria": "papelaria",
     "subcategoria": "cadernos",
-    "preco": 9.5,
-    "descricao": "Brochura costurada de 80 folhas, ideal pra caligrafia, recados e anotações do dia a dia.",
-    "imagens": ["/img/produtos/cad-broch-80.svg"],
+    "preco": 7.5,
+    "descricao": "Caderno brochurão capa dura, 96 folhas. Ideal para as matérias do dia a dia.",
+    "imagens": [
+      "/img/produtos/caderno-brochurao-foroni.jpg"
+    ],
     "variacoes": [],
     "estoque": null,
     "ativo": true,
@@ -32,8 +40,14 @@
     "subcategoria": "escrita",
     "preco": 2.5,
     "descricao": "A clássica esferográfica de escrita macia que nunca falha na prova. Leve uma ou a caixa inteira.",
-    "imagens": ["/img/produtos/caneta-esferografica.svg"],
-    "variacoes": ["Azul", "Preta", "Vermelha"],
+    "imagens": [
+      "/img/produtos/caneta-esferografica.svg"
+    ],
+    "variacoes": [
+      "Azul",
+      "Preta",
+      "Vermelha"
+    ],
     "estoque": null,
     "ativo": true,
     "destaque": false
@@ -45,7 +59,9 @@
     "subcategoria": "escrita",
     "preco": 14.9,
     "descricao": "Kit com 12 cores vivas, tinta lavável e ponta reforçada. Sucesso garantido na lista de material.",
-    "imagens": ["/img/produtos/kit-canetinhas-12.svg"],
+    "imagens": [
+      "/img/produtos/kit-canetinhas-12.svg"
+    ],
     "variacoes": [],
     "estoque": null,
     "ativo": true,
@@ -58,7 +74,9 @@
     "subcategoria": "escrita",
     "preco": 1.5,
     "descricao": "Lápis de escrever com grafite resistente e madeira que aponta fácil. O básico que não pode faltar.",
-    "imagens": ["/img/produtos/lapis-hb.svg"],
+    "imagens": [
+      "/img/produtos/lapis-hb.svg"
+    ],
     "variacoes": [],
     "estoque": null,
     "ativo": true,
@@ -69,9 +87,11 @@
     "nome": "Borracha branca macia",
     "categoria": "papelaria",
     "subcategoria": "escrita",
-    "preco": 2.0,
+    "preco": 2,
     "descricao": "Apaga limpo, sem borrar e sem rasgar a folha.",
-    "imagens": ["/img/produtos/borracha-macia.svg"],
+    "imagens": [
+      "/img/produtos/borracha-macia.svg"
+    ],
     "variacoes": [],
     "estoque": null,
     "ativo": true,
@@ -84,7 +104,9 @@
     "subcategoria": "papel",
     "preco": 32.9,
     "descricao": "Resma A4 75 g/m², branquinha, pra impressora de casa, do escritório ou da escola.",
-    "imagens": ["/img/produtos/sulfite-a4-500.svg"],
+    "imagens": [
+      "/img/produtos/sulfite-a4-500.svg"
+    ],
     "variacoes": [],
     "estoque": null,
     "ativo": true,
@@ -97,7 +119,9 @@
     "subcategoria": "escolar",
     "preco": 8.9,
     "descricao": "Cola sem sujeira pra papel e cartolina. Tamanho família: rende muito trabalho de escola.",
-    "imagens": ["/img/produtos/cola-bastao-40.svg"],
+    "imagens": [
+      "/img/produtos/cola-bastao-40.svg"
+    ],
     "variacoes": [],
     "estoque": null,
     "ativo": true,
@@ -110,7 +134,9 @@
     "subcategoria": "escolar",
     "preco": 7.5,
     "descricao": "Segura pras crianças e afiada o bastante pro trabalho de artes ficar caprichado.",
-    "imagens": ["/img/produtos/tesoura-escolar.svg"],
+    "imagens": [
+      "/img/produtos/tesoura-escolar.svg"
+    ],
     "variacoes": [],
     "estoque": null,
     "ativo": true,
@@ -123,8 +149,14 @@
     "subcategoria": "escolar",
     "preco": 24.9,
     "descricao": "Dois andares de espaço: lápis e canetas de um lado, canetinhas e apontador do outro.",
-    "imagens": ["/img/produtos/estojo-duplo.svg"],
-    "variacoes": ["Azul", "Rosa", "Preto"],
+    "imagens": [
+      "/img/produtos/estojo-duplo.svg"
+    ],
+    "variacoes": [
+      "Azul",
+      "Rosa",
+      "Preto"
+    ],
     "estoque": null,
     "ativo": true,
     "destaque": true
@@ -136,8 +168,13 @@
     "subcategoria": "perifericos",
     "preco": 49.9,
     "descricao": "Mouse óptico sem fio com receptor USB. Confortável na mão e sem enrosco de cabo na mesa.",
-    "imagens": ["/img/produtos/mouse-sem-fio.svg"],
-    "variacoes": ["Preto", "Branco"],
+    "imagens": [
+      "/img/produtos/mouse-sem-fio.svg"
+    ],
+    "variacoes": [
+      "Preto",
+      "Branco"
+    ],
     "estoque": null,
     "ativo": true,
     "destaque": true
@@ -149,7 +186,9 @@
     "subcategoria": "perifericos",
     "preco": 59.9,
     "descricao": "Teclado com fio no padrão brasileiro (com Ç), teclas macias e resistentes ao uso diário.",
-    "imagens": ["/img/produtos/teclado-abnt2.svg"],
+    "imagens": [
+      "/img/produtos/teclado-abnt2.svg"
+    ],
     "variacoes": [],
     "estoque": null,
     "ativo": true,
@@ -162,7 +201,9 @@
     "subcategoria": "armazenamento",
     "preco": 44.9,
     "descricao": "Espaço de sobra pra documentos, fotos e trabalhos — com leitura rápida USB 3.0.",
-    "imagens": ["/img/produtos/pendrive-64gb.svg"],
+    "imagens": [
+      "/img/produtos/pendrive-64gb.svg"
+    ],
     "variacoes": [],
     "estoque": null,
     "ativo": true,
@@ -175,7 +216,9 @@
     "subcategoria": "cabos",
     "preco": 24.9,
     "descricao": "Full HD e 4K com conectores banhados. Liga notebook, TV e projetor sem mistério.",
-    "imagens": ["/img/produtos/cabo-hdmi-2m.svg"],
+    "imagens": [
+      "/img/produtos/cabo-hdmi-2m.svg"
+    ],
     "variacoes": [],
     "estoque": null,
     "ativo": true,
@@ -188,7 +231,9 @@
     "subcategoria": "audio",
     "preco": 29.9,
     "descricao": "Fone P2 com microfone pra aula online, chamada de vídeo e música.",
-    "imagens": ["/img/produtos/fone-microfone.svg"],
+    "imagens": [
+      "/img/produtos/fone-microfone.svg"
+    ],
     "variacoes": [],
     "estoque": null,
     "ativo": true,
@@ -201,8 +246,13 @@
     "subcategoria": "suprimentos",
     "preco": 89.9,
     "descricao": "Cartucho original pra impressoras HP DeskJet das séries 1000, 2000 e 3000.",
-    "imagens": ["/img/produtos/cartucho-hp-664.svg"],
-    "variacoes": ["Preto", "Colorido"],
+    "imagens": [
+      "/img/produtos/cartucho-hp-664.svg"
+    ],
+    "variacoes": [
+      "Preto",
+      "Colorido"
+    ],
     "estoque": null,
     "ativo": true,
     "destaque": true
