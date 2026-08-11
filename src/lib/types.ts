@@ -5,6 +5,11 @@ export interface Product {
   categoria: 'papelaria' | 'informatica';
   subcategoria: string;
   preco: number;
+  /**
+   * Código de barras (ou código interno) do produto no sistema da loja.
+   * É o que permite buscar o preço real no PDV. Vazio = usa o preço da planilha.
+   */
+  codigo?: string;
   descricao: string;
   imagens: string[];
   /** Opções simples (ex.: ["Capa azul", "Capa rosa"]). Vazio = sem variação. */

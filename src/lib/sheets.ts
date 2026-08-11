@@ -2,7 +2,7 @@
  * Adaptador Google Sheets → catálogo.
  *
  * O dono edita uma planilha com as colunas:
- *   id | nome | categoria | subcategoria | preco | descricao | foto_url | variacoes | ativo | destaque
+ *   id | codigo | nome | categoria | subcategoria | descricao | foto_url | variacoes | ativo | destaque | preco(opcional)
  * e publica como CSV (Arquivo → Compartilhar → Publicar na web → CSV).
  * O link publicado vai em CATALOG_CSV_URL no .env. A leitura acontece no build.
  */
@@ -34,6 +34,7 @@ export async function produtosDaPlanilha(csvUrl: string): Promise<Product[]> {
       categoria: (col(l, 'categoria') || 'papelaria') as Product['categoria'],
       subcategoria: col(l, 'subcategoria'),
       preco: parsePreco(col(l, 'preco')),
+      codigo: col(l, 'codigo') || undefined,
       descricao: col(l, 'descricao'),
       imagens: [col(l, 'foto_url') || '/img/produtos/placeholder.svg'],
       variacoes: col(l, 'variacoes')
