@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800">
+  <rect width="800" height="800" fill="#faf6ef"/>
+  <circle cx="630" cy="170" r="250" fill="#3e6fd9" opacity="0.16"/>
+  <circle cx="720" cy="330" r="230" fill="#f5821f" opacity="0.14"/>
+  <circle cx="90" cy="720" r="200" fill="#f5821f" opacity="0.10"/>
+  <g transform="translate(268 240) scale(11)" fill="none" stroke="#3a352e" stroke-opacity="0.85" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3.5h10V9l1.5 1.5v10h-13v-10L7 9Z"/><path d="M7 9h10"/><path d="M12 13a1.8 1.8 0 0 1 1.8 1.8c0 1-1.8 2.7-1.8 2.7s-1.8-1.7-1.8-2.7A1.8 1.8 0 0 1 12 13Z"/></g>
+  <text x="400" y="706" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="30" font-weight="600" fill="#a3988a">imagem ilustrativa</text>
+</svg>
